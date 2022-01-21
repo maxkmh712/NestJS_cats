@@ -36,7 +36,7 @@ export class AppController {
     // /:id 로 동적라우팅했을때 param이 그 id값이 되는 것 http://localhost:8000/cats/hello/maxkmh
     // hello/:id/:name name 까지 추가해도 다 받아올 수 있음
     // console.log(param)
-    return this.catsService.hiCatServiceProductt();
+    return "app.controller"
     // 리턴값 getHello 함수에 Body, param를 보내서 사용할 수도 있음 여기는 컨트롤러이고 여기서 바디와 파라미터를 받아오는 것
   }
 }
