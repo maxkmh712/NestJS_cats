@@ -42,25 +42,7 @@ export class CatsController {
     return 'one cat';
   }
 
-  @Post()
-  createCat() {
-    return 'create cat';
-  }
 
-  @Put()
-  updateCat() {
-    return 'update cat';
-  }
-
-  @Patch(':id')
-  updatePartialCat() {
-    return 'partial update cat';
-  }
-
-  @Delete(':id')
-  deleteCat() {
-    return 'delete cat';
-  }
 }
 
 // ⭐️  app.controller와 cats.controller 비교!
