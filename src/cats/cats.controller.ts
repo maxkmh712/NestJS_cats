@@ -76,6 +76,7 @@ export class CatsController {
   uploadCatImg() {
     return '고양이 사진!'
   }
+
 }
   // cats/
   // @Get()
@@ -107,9 +108,12 @@ export class CatsController {
 // ⭐️  app.controller와 cats.controller 비교!
 // 두가지 중에서 app.controller가 우선한다!
 
+
 // ⭐️  파이프란?
 // 클라이언트 요청에서 들어오는 데이터를 유효성 검사 및 변환을 수행하여 서버가 원하는 
 // 데이터를 얻을 수 있도록 도와주는 클래스
 // 왜 파이프로 이름을 지었나? -> 
+
+
 // ⭐️  인터셉터란?
 //  각각의 컨트롤러들을 횡단을 하면서 재사용성이 가능한 기능들을 하나의 모듈로 묶는 것 (관점지향적)

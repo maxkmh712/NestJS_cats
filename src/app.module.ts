@@ -20,6 +20,7 @@ import * as mongoose from "mongoose"
     CatsModule,
     AuthModule,],
   // .env 쓰려면 ConfigModule.forRoot() 있어야함
+
   // 현재 cats 모듈과 users 모듈이 있고 이 두개가 app 모듈에서 실행되고 그 app 모듈이 main에서 실행되는 것
   // 또한 CatsModule, UsersModule 여기서 exports 한 서비스들을 AppController, AppService 여기서 쓸 수 있는 것
   // cats.module.ts에서 exports 해놓은 CatsModule 가  app.module.ts에서 imports 되고 그러면 밑밑에 providers에서 따로 CatsService를 등록안해도 쓸 수 있다.
@@ -33,11 +34,14 @@ import * as mongoose from "mongoose"
   // 공급자로 취급이 된 것들은 의존성 주입이 가능하다 @Injectable()
 })
 export class AppModule implements NestModule {
-  // 여기서 NestModule은 인터페이스를 의미함
+  // 여기서 NestModule은 인터페이스를 의미함 
+  private readonly isDev: boolean = process.env.MODE === 'dev' ? true : false;
+  // 이렇게 하면 process.env.MODE === 'dev'가 true 일때 밑으로 가서 쿼리 찍힘
   configure(consumer: MiddlewareConsumer) {
     consumer.apply(LoggerMiddleware).forRoutes('*');
     // .forRoutes('cats') 라고 쓰면 cats 라우터에 바인딩을 시켜주는 것
     // * 로 쓰면 와일드카드로 전체 엔드포인트에 대해서 LoggerMiddleware 가 실행이 되는 것
+    // * 로 쓰면 와일드카드로 전체 엔드포인트에 대해서 LoggerMiddleware 가 실행이 되는 것 
     mongoose.set('debug', true);
     // 이렇게 해주면 몽구스 쿼리가 찍힘
   }

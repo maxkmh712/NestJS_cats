@@ -11,6 +11,7 @@ import { CatsService } from './cats.service';
 // 폴더 만들기로 하나하나 쳐도 되지만 nestjs cli를 통해 편하게 만들자
 // cli로 만들면 app.module에 imports에 바로 추가됨
 
+
 // 그럼 이제 cats의 컨트롤러와 프로바이더를 만들어서 서비스를 제공해보자 이거 두 개 다 cli로 만들면 된다
 @Module({
   imports: [
