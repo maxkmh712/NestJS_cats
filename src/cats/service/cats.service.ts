@@ -1,9 +1,9 @@
-import { CatsRepository } from './cats.repository';
+import { CatsRepository } from '../cats.repository';
 import { Injectable, HttpException, UnauthorizedException } from '@nestjs/common';
 import { InjectModel } from '@nestjs/mongoose';
 import { Model } from 'mongoose';
-import { Cat } from './cats.schema';
-import { CatRequestDto } from './dto/cats.request.dto';
+import { Cat } from '../cats.schema';
+import { CatRequestDto } from '../dto/cats.request.dto';
 import * as bcrypt from 'bcrypt';
 
 // nest g s cats : 서비스 생성

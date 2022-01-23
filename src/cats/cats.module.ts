@@ -1,10 +1,10 @@
 import { Module, forwardRef } from '@nestjs/common';
 import { MongooseModule } from '@nestjs/mongoose';
 import { AuthModule } from 'src/auth/auth.module';
-import { CatsController } from './cats.controller';
+import { CatsController } from './controller/cats.controller';
 import { CatsRepository } from './cats.repository';
 import { Cat, CatSchema } from './cats.schema';
-import { CatsService } from './cats.service';
+import { CatsService } from './service/cats.service';
 
 
 // nest g mo cats : 모듈 만들기 (모듈 이름은 복수형으로)
@@ -17,6 +17,8 @@ import { CatsService } from './cats.service';
   imports: [
     MongooseModule.forFeature([{ name: Cat.name, schema: CatSchema }]),
     forwardRef(() => AuthModule)
+    // CatsModule과 AuthModule은 서로를 참조하고 있기 때문에 순환 참조 문제 발생 
+    // 해결은 forwardRef로
   ],
   // 이렇게 해당 스키마를 등록해줘야 쓸 수 있음
   controllers: [CatsController],

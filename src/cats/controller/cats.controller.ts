@@ -1,13 +1,13 @@
-import { CurrentUser } from './../common/decorators/user.decorator';
-import { JwtAuthGuard } from './../auth/jwt/jwt.guard';
-import { PositiveIntPipe } from './../common/pipes/positiveint.pipe';
+import { CurrentUser } from '../../common/decorators/user.decorator';
+import { JwtAuthGuard } from '../../auth/jwt/jwt.guard';
+import { PositiveIntPipe } from '../../common/pipes/positiveint.pipe';
 import { Controller, Delete, Body, Get, Patch, Post, Put, HttpException, UseFilters, Param, ParseIntPipe, UseInterceptors, UseGuards, Req } from '@nestjs/common';
 import { HttpExceptionFilter } from 'src/common/exceptions/http-exception.filter';
-import { CatsService } from './cats.service';
+import { CatsService } from '../service/cats.service';
 import { SuccessInterceptor } from 'src/common/interceptors/success.interceptor';
-import { CatRequestDto } from './dto/cats.request.dto';
+import { CatRequestDto } from '../dto/cats.request.dto';
 import { ApiOperation, ApiResponse } from '@nestjs/swagger';
-import { ReadOnlyCatDto } from './dto/cats.response.dto';
+import { ReadOnlyCatDto } from '../dto/cats.response.dto';
 import { AuthService } from 'src/auth/auth.service';
 import { LoginRequestDto } from 'src/auth/dto/login.request.dto';
 import { Request } from 'express';
@@ -24,15 +24,21 @@ export class CatsController {
   constructor(
     private readonly catsService: CatsService,
     private readonly authService: AuthService,
+    // 
     ) {}
   // CatsController라는 소비자가 CatsService라는 상품을 주입받은 것
 
   @ApiOperation({ summary: '현재 고양이 가져오기. cats.controller에서 보냄'})
   @UseGuards(JwtAuthGuard)
+  // jwt.guard에 있는 것을 이렇게 사용
+  // 여기서 인증 처리된 정보를 밑에 함수에서 인자로 넣어주는 것
   @Get()
   getCurrentCat(@CurrentUser() cat) {
+    // @CurrentUser() 이거는 common/decorators에 만든 함수이다 이게 실행이 되면서 request.user가
+    // 반환이 되고 cat에 담긴다 
     // Request를 가져올때 express에서 가져와야지 다른 거 가져오면 에러남
     return cat.readOnlyData;
+    // cat 전체를 다 보여주기 보다는 readOnlyData 이걸 통해서 가공된 정보만 제공!
   }
  
   //////
@@ -58,6 +64,9 @@ export class CatsController {
     // 이 컨트롤러에서 signUp 함수가 실행되면 리턴값으로 catsService에 있는 signUp 함수가 실행된다(body가 인자로 담김)
   }
 
+
+  // 이 로그인 같은 경우 cats.module의 service를 사용하는 것이 아니라
+  // auth.module의 service를 사용하는 것
   @ApiOperation({ summary: '로그인!'})
   @Post('login')
   logIn(@Body() data: LoginRequestDto) {

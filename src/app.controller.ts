@@ -1,7 +1,7 @@
 import { Body, Controller, Get, Param, Req } from '@nestjs/common';
 import { Request } from 'express';
 import { AppService } from './app.service';
-import { CatsService } from './cats/cats.service';
+import { CatsService } from './cats/service/cats.service';
 
 @Controller('')
 // 여기 써준 cats는 엔드포인트임 http://localhost:8000/cats
