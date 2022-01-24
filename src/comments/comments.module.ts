@@ -12,7 +12,7 @@ import { CatsModule } from 'src/cats/cats.module';
       { name: Comments.name, schema: CommentsSchema },
     ]),
     CatsModule,
-    // 이걸 CatsRepository로 했더니 오류남
+    // CatsRepository로 했더니 오류남
   ],
   controllers: [CommentsController],
   providers: [CommentsService]

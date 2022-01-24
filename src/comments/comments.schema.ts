@@ -10,6 +10,7 @@ const options: SchemaOptions = {
 
 @Schema(options)
 export class Comments extends Document {
+
   @ApiProperty({
     description: '작성한 고양이 id! from comments.schema',
     required: true,
@@ -18,11 +19,10 @@ export class Comments extends Document {
     type: Types.ObjectId,
     required: true,
     ref: 'cats' 
-    // 참조할 테이블
   })
   @IsNotEmpty()
   author: Types.ObjectId;
-  // 댓글을 쓴 사람
+
 
 
   @ApiProperty({
@@ -37,6 +37,7 @@ export class Comments extends Document {
   contents: string;
 
 
+
   @ApiProperty({
     description: '좋아요 수!!',
   })
@@ -46,6 +47,8 @@ export class Comments extends Document {
   @IsPositive()
   likeCount: number;
 
+
+
   @ApiProperty({
     description: '댓글을 누구한테 썼는지!',
     required: true,
@@ -54,13 +57,12 @@ export class Comments extends Document {
     type: Types.ObjectId,
     required: true,
     ref: 'cats' 
-    // 참조할 테이블
   })
   @IsNotEmpty()
   info: Types.ObjectId;
-  // 누구한테 썼는지에 해당하는 부분 = 댓글을 받은 사람
 }
 
+
+
 export const CommentsSchema = SchemaFactory.createForClass(Comments);
-// Comments라는 클래스를 스키마로 만들어주는것! 
 
