@@ -1,3 +1,4 @@
+import { CommentsSchema } from './../comments/comments.schema';
 import { Module, forwardRef } from '@nestjs/common';
 import { MongooseModule } from '@nestjs/mongoose';
 import { AuthModule } from 'src/auth/auth.module';
@@ -5,6 +6,8 @@ import { CatsController } from './controller/cats.controller';
 import { CatsRepository } from './cats.repository';
 import { Cat, CatSchema } from './cats.schema';
 import { CatsService } from './service/cats.service';
+import { MulterModule } from '@nestjs/platform-express';
+import { Comments } from 'src/comments/comments.schema';
 
 
 // nest g mo cats : 모듈 만들기 (모듈 이름은 복수형으로)
@@ -15,7 +18,14 @@ import { CatsService } from './service/cats.service';
 // 그럼 이제 cats의 컨트롤러와 프로바이더를 만들어서 서비스를 제공해보자 이거 두 개 다 cli로 만들면 된다
 @Module({
   imports: [
-    MongooseModule.forFeature([{ name: Cat.name, schema: CatSchema }]),
+    MulterModule.register({
+      dest: './upload',
+      // destination -> upload라는 폴더에 저장이 된다
+    }),
+    MongooseModule.forFeature([
+      { name: Cat.name, schema: CatSchema },
+      { name: Comments.name, schema: CommentsSchema},
+    ]),
     forwardRef(() => AuthModule)
     // CatsModule과 AuthModule은 서로를 참조하고 있기 때문에 순환 참조 문제 발생 
     // 해결은 forwardRef로

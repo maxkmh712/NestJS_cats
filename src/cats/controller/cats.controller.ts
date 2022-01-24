@@ -1,16 +1,33 @@
 import { CurrentUser } from '../../common/decorators/user.decorator';
 import { JwtAuthGuard } from '../../auth/jwt/jwt.guard';
 import { PositiveIntPipe } from '../../common/pipes/positiveint.pipe';
-import { Controller, Delete, Body, Get, Patch, Post, Put, HttpException, UseFilters, Param, ParseIntPipe, UseInterceptors, UseGuards, Req } from '@nestjs/common';
+import { 
+  Controller, 
+  Delete, 
+  Body, 
+  Get, 
+  Patch, 
+  Post, 
+  Put, 
+  HttpException, 
+  UseFilters, 
+  Param, 
+  ParseIntPipe, 
+  UseInterceptors, 
+  UseGuards, 
+  Req, 
+  UploadedFiles 
+} from '@nestjs/common';
 import { HttpExceptionFilter } from 'src/common/exceptions/http-exception.filter';
 import { CatsService } from '../service/cats.service';
 import { SuccessInterceptor } from 'src/common/interceptors/success.interceptor';
-import { CatRequestDto } from '../dto/cats.request.dto';
+import { SignUpRequestDto } from '../dto/cats.request.dto';
 import { ApiOperation, ApiResponse } from '@nestjs/swagger';
 import { ReadOnlyCatDto } from '../dto/cats.response.dto';
 import { AuthService } from 'src/auth/auth.service';
 import { LoginRequestDto } from 'src/auth/dto/login.request.dto';
 import { Request } from 'express';
+import { FileInterceptor, FilesInterceptor } from '@nestjs/platform-express';
 
 // nest g co cats : 컨트롤러 생성 => 바로 module에 추가됨
 
@@ -55,7 +72,7 @@ export class CatsController {
 
   @ApiOperation({ summary: '이거슨 회원가입!'})
   @Post()
-  async signUp(@Body() body: CatRequestDto) {
+  async signUp(@Body() body: SignUpRequestDto) {
     // 여기 바디에서 validation을 넣어서 exception 처리를 해주자! -> dto
     // 이렇게 하면 바디에서 유효성 검사를 마친 안전한 데이터를 받을 수 있다
     // 이제 이 데이터를 서비스로 넘겨주고 서비스에서 비즈니스 로직을 실행하면 된다.
@@ -80,12 +97,25 @@ export class CatsController {
   }
   // 이 로그아웃 기능은 필요가 없다 -> jwt 자체를 프론트에서 제거해버리면 로그아웃 된 것이기 때문
 
-  @ApiOperation({ summary: '이미지 업로드'})
+  @ApiOperation({ summary: '이미지 업로드 cats.controller에 위치'})
+  @UseInterceptors(FilesInterceptor('image'))
+  // 파일들을 여기 인터셉터로 받게 되면 
   @Post('upload/cats')
-  uploadCatImg() {
-    return '고양이 사진!'
+  uploadCatImg(@UploadedFiles() files: Array<Express.Multer.File>) {
+    console.log(files);
+    return '고양이 사진!cats.controller에 위치 '
   }
 
+
+
+  @ApiOperation({ summary: '모든 고양이 가져오기!!! cats.controller'})
+  @Get('all')
+  getAllCat() {
+    return this.catsService.getAllCat();
+  }
+
+
+  
 }
   // cats/
   // @Get()

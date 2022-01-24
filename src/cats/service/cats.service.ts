@@ -1,9 +1,9 @@
+import { SignUpRequestDto } from './../dto/cats.request.dto';
 import { CatsRepository } from '../cats.repository';
 import { Injectable, HttpException, UnauthorizedException } from '@nestjs/common';
 import { InjectModel } from '@nestjs/mongoose';
 import { Model } from 'mongoose';
 import { Cat } from '../cats.schema';
-import { CatRequestDto } from '../dto/cats.request.dto';
 import * as bcrypt from 'bcrypt';
 
 // nest g s cats : 서비스 생성
@@ -16,8 +16,9 @@ export class CatsService {
   // 레포지토리를 통해서 인젝션 받을 것이기 때문에 이거는 지우자
   constructor(private readonly catsRepository: CatsRepository) {}
 
-  async signUp(body: CatRequestDto) {
+  async signUp(body: SignUpRequestDto) {
     const { email, name, password } = body;
+    
     const isCatExist = await this.catsRepository.existsByEmail(email);
 
     if (isCatExist) {
@@ -37,4 +38,11 @@ export class CatsService {
   // 바디 자체는 디티오 타입으로 받는다
   // 회원가입 과정 자체는 1. 바디로 담겨온 데이터를 2. 유효성 검사를 수행하주고 3. 비번 암호화하고 4. 디비에 저장
   // 디비에 저장하려면 쿼리를 써야하고 이 스키마를 디비 안에서 쓰려면 의존성 주입을 해줘야 함
+
+
+  async getAllCat() {
+    const allCat = await this.catsRepository.findAll();
+    const readOnlyCats = allCat.map((cat) => cat.readOnlyData);
+    return readOnlyCats;
+  }
 }

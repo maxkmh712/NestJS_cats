@@ -7,6 +7,8 @@ import { ConfigModule } from '@nestjs/config';
 import { LoggerMiddleware } from './common/middlewares/logger.middleware';
 import { MongooseModule } from '@nestjs/mongoose';
 import { AuthModule } from './auth/auth.module';
+import { ProductsModule } from './products/products.module';
+import { CommentsModule } from './comments/comments.module';
 // 공홈 테크닉스 - 몽고 에서 npm install --save @nestjs/mongoose mongoose 설치 후 import해오자
 import * as mongoose from "mongoose"
 
@@ -18,7 +20,9 @@ import * as mongoose from "mongoose"
     useUnifiedTopology: true,
   }),
     CatsModule,
-    AuthModule,],
+    AuthModule,
+    ProductsModule,
+    CommentsModule,],
   // .env 쓰려면 ConfigModule.forRoot() 있어야함
 
   // 현재 cats 모듈과 users 모듈이 있고 이 두개가 app 모듈에서 실행되고 그 app 모듈이 main에서 실행되는 것

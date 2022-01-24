@@ -1,7 +1,7 @@
 import { ApiProperty } from '@nestjs/swagger';
 import { IsEmail, IsNotEmpty, IsString } from 'class-validator';
 
-export class CatRequestDto {
+export class SignUpRequestDto {
   @ApiProperty({
     example: 'maxkmh@gmail.com',
     description: '설명설명설명',
