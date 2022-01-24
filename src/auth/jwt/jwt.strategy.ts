@@ -31,8 +31,9 @@ export class JwtStrategy extends PassportStrategy(Strategy) {
 
     if (cat) {
       return cat;
+      // 이렇게 보내면 request.user 안에 cat이 들어가게 됨
     } else {
-      throw new UnauthorizedException('접근 오류!!! jwt.strategy에서 보냄');
+      throw new UnauthorizedException('접근 오류!!! 토큰 틀림! jwt.strategy에서 보냄');
     }
   }
 
