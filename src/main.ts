@@ -1,3 +1,4 @@
+import { SuccessInterceptor } from 'src/common/interceptors/success.interceptor';
 import { HttpException, ValidationPipe } from '@nestjs/common';
 import { NestFactory } from '@nestjs/core';
 import { DocumentBuilder, OpenAPIObject, SwaggerModule } from '@nestjs/swagger';
@@ -9,6 +10,7 @@ async function bootstrap() {
   const app = await NestFactory.create(AppModule);
   app.useGlobalPipes(new ValidationPipe());
   app.useGlobalFilters(new HttpExceptionFilter());
+  app.useGlobalInterceptors(new SuccessInterceptor());
 
   const config = new DocumentBuilder()
     .setTitle('Cats example main.ts 에서 보냄')
