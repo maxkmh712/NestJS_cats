@@ -26,4 +26,9 @@ export class LikesService {
     })
     return like
   }
+
+  async getAllLike(catId: string) {
+    const allLike = await this.likesRepository.findAll(catId);
+    return allLike
+  }
 }

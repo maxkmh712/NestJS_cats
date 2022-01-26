@@ -16,4 +16,12 @@ export class LikesRepository {
         product: productId
       });
     }
+
+    async findAll(catId: string) {
+      const result = await this.LikeModel
+      .find({cat : catId})
+      .populate('product')
+      .select('-createdAt -__v')
+      return result
+    }
 }
