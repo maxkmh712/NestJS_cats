@@ -1,5 +1,5 @@
 import { Like } from './../likes.schema';
-import { Injectable } from '@nestjs/common';
+import { BadRequestException, Injectable } from '@nestjs/common';
 import { InjectModel } from '@nestjs/mongoose';
 import { Model } from 'mongoose';
 import { LikesRepository } from '../likes.repository';
@@ -30,5 +30,21 @@ export class LikesService {
   async getAllLike(catId: string) {
     const allLike = await this.likesRepository.findAll(catId);
     return allLike
+  }
+
+  async deleteLike( catId: string, productId: string ) {
+    const existsLike = await this.likesRepository.existsLike(
+      catId,
+      productId
+    );
+    
+    if (!existsLike) throw new BadRequestException('DOES_NOT_EXIST_PRODUCT');
+
+    const deleteLike = await this.likesRepository.deleteLike(
+      catId,
+      productId
+    )
+
+    return deleteLike
   }
 }

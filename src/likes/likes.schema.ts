@@ -19,8 +19,7 @@ export class Like extends Document {
   })
   @IsString()
   @IsNotEmpty()
-  cat: Cat;
-  catId: string;
+  cat: mongoose.Types.ObjectId;
 
 
   @Prop({ 
@@ -29,8 +28,7 @@ export class Like extends Document {
   })
   @IsString()
   @IsNotEmpty()
-  product: Product;
-  productId: string;
+  product: mongoose.Types.ObjectId;
 }
 
 export const LikeSchema = SchemaFactory.createForClass(Like);
