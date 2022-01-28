@@ -9,18 +9,16 @@ export class JwtStrategy extends PassportStrategy(Strategy) {
   constructor(private readonly catsRepository: CatsRepository) {
     super({
       jwtFromRequest: ExtractJwt.fromAuthHeaderAsBearerToken(),
-      secretOrKey: 'secret',
+      secretOrKey: process.env.JWT_SECRET_KEY,
       ignoreExpiration: false,
     });
   }
 
   async validate(payload: Payload) {
-    const cat = await this.catsRepository.findCatByIdwithoutPassword( payload.sub );
+    const cat = await this.catsRepository.findCatByIdwithoutPassword( payload.id );
 
-    if (cat) {
-      return cat;
-    } else {
-      throw new UnauthorizedException('접근 오류!!! 토큰 틀림! jwt.strategy에서 보냄');
-    }
+    if (!cat) throw new UnauthorizedException('UNAUTHORIZED from jwt.strategy');
+
+    return cat
   }
 }

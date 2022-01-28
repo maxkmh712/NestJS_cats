@@ -33,7 +33,7 @@ export class ImageService {
       return `https://${this.AWS_S3_BUCKET_NAME}.s3.amazonaws.com/${key}`;
     } catch(error) {
       console.log('error');
-      throw new BadRequestException('이미지 업로드 실패!!! from image.service')
+      throw new BadRequestException('IMAGE_UPLOAD_FAILED from image.service')
     }
   }
 }

@@ -1,8 +1,7 @@
 import { InjectModel } from '@nestjs/mongoose';
 import { ProductsRepository } from './../products.repository';
-import { HttpException, Injectable, BadRequestException } from '@nestjs/common';
+import { Injectable, BadRequestException } from '@nestjs/common';
 import { ProductRequestDto } from '../dto/product.request.dto';
-import { response, query } from 'express';
 import { Product } from '../products.schema';
 import { Model } from 'mongoose';
 import { ProductFilterKeywordRequestDto } from '../dto/productFilterKeyword.request.dto';

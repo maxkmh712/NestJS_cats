@@ -3,7 +3,6 @@ import { MongooseModule } from '@nestjs/mongoose';
 import { Module } from '@nestjs/common';
 import { CommentsController } from './controller/comments.controller';
 import { CommentsService } from './service/comments.service';
-import { CatsRepository } from 'src/cats/cats.repository';
 import { CatsModule } from 'src/cats/cats.module';
 
 @Module({
@@ -12,7 +11,6 @@ import { CatsModule } from 'src/cats/cats.module';
       { name: Comments.name, schema: CommentsSchema },
     ]),
     CatsModule,
-    // CatsRepository로 했더니 오류남
   ],
   controllers: [CommentsController],
   providers: [CommentsService]

@@ -9,39 +9,38 @@ const options: SchemaOptions = {
 
 @Schema(options)
 export class Cat extends Document {
-
-
   @Prop({ required: true, unique: true })
   @IsEmail()
   @IsNotEmpty()
   email: string;
-
 
   @Prop({ required: true })
   @IsString()
   @IsNotEmpty()
   name: string;
 
-
   @Prop({ required: true })
   @IsString()
   @IsNotEmpty()
   password: string; 
 
-
   @Prop()
   @IsString()
   imgUrl: string;
 
-
-  readonly readOnlyData: { id: string; email: string; name: string };
+  readonly readOnlyData: { 
+    id: string; 
+    email: string; 
+    name: string;
+    imgUrl: string;
+  };
+  
   readonly comments: Comments[];
 }
 
 export const _CatSchema = SchemaFactory.createForClass(Cat);
 
 _CatSchema.virtual('readOnlyData').get(function (this: Cat) {
-
   return {
     id: this.id,
     email: this.email,

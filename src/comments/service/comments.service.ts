@@ -10,7 +10,6 @@ export class CommentsService {
   constructor(
     @InjectModel(Comments.name) private readonly commentsModel: Model<Comments>, 
     private readonly catsRepository: CatsRepository
-    // 질문! 이 두개의 차이점이 뭐지?????
   ) {}
 
 
@@ -24,7 +23,7 @@ export class CommentsService {
   }
 
   async createComment(id: string, commentData: CommentsCreateDto) {
-    // 여기서 2번째 인자 comments는 서비스 입장에서 네이밍한 것
+    // 여기서 2번째 인자 commentData는 서비스 입장에서 네이밍한 것
     try {
       const targetCat = await this.catsRepository.findCatByIdwithoutPassword(
         id,

@@ -1,35 +1,18 @@
-import { ApiProperty } from '@nestjs/swagger';
-import { IsEmail, IsNotEmpty, IsString } from 'class-validator';
+import { IsEmail, IsNotEmpty, IsString, Matches, MaxLength, MinLength } from 'class-validator';
 
 export class SignUpRequestDto {
-  @ApiProperty({
-    example: 'maxkmh@gmail.com',
-    description: '설명설명설명',
-    required: true
-  })
   @IsEmail()
   @IsNotEmpty()
   email: string;
 
-
-
-  @ApiProperty({
-    example: '12345',
-    description: '설명설명설명',
-    required: true
-  })
   @IsString()
   @IsNotEmpty()
+  @Matches(/^[A-Za-z\d!@#$%^&*()]{8,30}$/)
   password: string;
 
-
-
-  @ApiProperty({
-    example: 'minho',
-    description: '설명설명설명',
-    required: true
-  })
   @IsString()
   @IsNotEmpty()
+  @MinLength(2)
+  @MaxLength(50)
   name: string;
 }

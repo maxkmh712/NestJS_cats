@@ -39,9 +39,6 @@ export class LikesRepository {
           cat: catId,
           product: productId
         }
-        // {
-        //   new: true,
-        // }
       )
       return deleteL
     }
