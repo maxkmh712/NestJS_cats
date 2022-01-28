@@ -1,8 +1,7 @@
 import { InjectModel } from '@nestjs/mongoose';
 import { Injectable } from "@nestjs/common";
 import { Like } from './likes.schema';
-import { create } from 'domain';
-import { Model, Types } from 'mongoose';
+import { Model } from 'mongoose';
 import { LikeRequestDto } from './dto/like.request.dto';
 
 @Injectable()
