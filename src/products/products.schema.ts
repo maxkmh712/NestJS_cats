@@ -30,7 +30,6 @@ export class Product extends Document {
 
 
   readonly readOnlyData: { name: string; color: string; price: number };
-  // readonly comments: Comments[];
 }
 
 export const _ProductSchema = SchemaFactory.createForClass(Product);
@@ -43,13 +42,5 @@ _ProductSchema.virtual('readOnlyData').get(function (this: Product) {
     price: this.price,
   };
 });
-
-// _ProductSchema.virtual('comments', {
-//   ref: 'comments',
-//   localField: '_id',
-//   foreignField: 'info',
-// });
-// _ProductSchema.set('toObject', {virtuals: true});
-// _ProductSchema.set('toJSON', {virtuals: true})
 
 export const ProductSchema = _ProductSchema;

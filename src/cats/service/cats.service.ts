@@ -1,7 +1,6 @@
 import { SignUpRequestDto } from '../dto/cats.request.dto';
 import { CatsRepository } from '../cats.repository';
-import { Injectable, HttpException, UnauthorizedException } from '@nestjs/common';
-import { InjectModel } from '@nestjs/mongoose';
+import { Injectable, UnauthorizedException } from '@nestjs/common';
 import { Model } from 'mongoose';
 import { Cat } from '../cats.schema';
 import * as bcrypt from 'bcrypt';
@@ -14,18 +13,18 @@ export class CatsService {
     const { email, name, password } = body;
     
     const isCatExist = await this.catsRepository.existsByEmail(email);
+    if (isCatExist) throw new UnauthorizedException('AlREADY_EXISTS_CAT from cats.service');
+  
 
-    if (isCatExist) {
-      throw new UnauthorizedException('cats.service에서 보냄! 해당 고양이는 이미 존재합니다~~!!!');
-    }
-
-    const hashedPassword = await bcrypt.hash(password, 10);
+    const salt = await bcrypt.genSalt()
+    const hashedPassword = await bcrypt.hash(password, salt);
 
     const cat = await this.catsRepository.create({
       email,
       name,
       password: hashedPassword
     });
+    
     return cat.readOnlyData;
   }
 

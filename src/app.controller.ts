@@ -5,13 +5,10 @@ import { CatsService } from './cats/service/cats.service';
 
 @Controller('')
 export class AppController {
-  constructor(
-    private readonly appService: AppService,
-    private readonly catsService: CatsService,
-  ) {}
+  constructor( private readonly appService: AppService ) {}
 
   @Get('hello')
   getHello( @Req() req: Request): string {
-    return "app.controller"
+    return this.appService.getHello();
   }
 }

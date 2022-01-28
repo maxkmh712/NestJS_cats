@@ -16,7 +16,6 @@ export class ProductsController {
 
   @Get('')
   getAllProduct(@Query(QueryValidationPipe) query: ProductFilterKeywordRequestDto) {
-    console.log(query)
     return this.productsService.getAllProducts(query);
   }
 

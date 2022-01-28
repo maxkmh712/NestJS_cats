@@ -1,5 +1,7 @@
-import { Controller, Get, Param, Post, Body, Patch } from '@nestjs/common';
+import { Controller, Get, Param, Post, Body, Patch, UseGuards } from '@nestjs/common';
 import { ApiOperation } from '@nestjs/swagger';
+import { JwtAuthGuard } from 'src/auth/jwt/jwt.guard';
+import { CurrentUser } from 'src/common/decorators/user.decorator';
 import { CommentsCreateDto } from '../dto/comments.create.dto';
 import { CommentsService } from '../service/comments.service';
 

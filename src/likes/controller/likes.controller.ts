@@ -24,8 +24,8 @@ export class LikesController {
   @UseGuards(JwtAuthGuard)
   @Delete('')
   async deleteLike(
-    @Body('productId', ObjectIdValidationPipe) productId: string,
     @CurrentUser() cat: Cat,
+    @Body('productId', ObjectIdValidationPipe) productId: string,
     ) {
       return await this.likesService.deleteLike(cat._id, productId);
     }

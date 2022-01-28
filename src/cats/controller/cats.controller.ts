@@ -1,14 +1,6 @@
 import { CurrentUser } from '../../common/decorators/user.decorator';
 import { JwtAuthGuard } from '../../auth/jwt/jwt.guard';
-import { 
-  Controller, 
-  Body, 
-  Get, 
-  Post, 
-  UseInterceptors, 
-  UseGuards, 
-  UploadedFiles 
-} from '@nestjs/common';
+import { Controller, Body, Get, Post, UseInterceptors, UseGuards, UploadedFiles } from '@nestjs/common';
 import { CatsService } from '../service/cats.service';
 import { SignUpRequestDto } from '../dto/cats.request.dto';
 import { AuthService } from 'src/auth/auth.service';
@@ -23,20 +15,20 @@ export class CatsController {
     private readonly authService: AuthService,
     ) {}
 
-  @Post()
+  @Post('signup')
   async signUp(@Body() body: SignUpRequestDto) {
     return await this.catsService.signUp(body)
   }
 
   @Post('login')
-  logIn(@Body() data: LoginRequestDto) {
-    return this.authService.jwtLogIn(data);
+  async logIn(@Body() data: LoginRequestDto) {
+    return await this.authService.jwtLogIn(data);
   }
 
   @UseGuards(JwtAuthGuard)
   @Get()
-  getCurrentCat(@CurrentUser() cat) {
-    return cat.readOnlyData;
+  async getCurrentCat(@CurrentUser() cat) {
+    return await cat.readOnlyData;
   }
 
   @UseInterceptors(FilesInterceptor('image'))
@@ -46,7 +38,7 @@ export class CatsController {
   }
 
   @Get('all')
-  getAllCat() {
-    return this.catsService.getAllCat();
+  async getAllCat() {
+    return await this.catsService.getAllCat();
   }
 }
